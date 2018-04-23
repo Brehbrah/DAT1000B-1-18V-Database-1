@@ -62,5 +62,41 @@ WHERE NOT (stilling = 'sekretær') AND lønn < 400000
  FROM ansatt 
  WHERE avdeling LIKE 'mark%' AND round(lønn,2)/12
 
-  
+/* Oppgave 7
+ * Personer ansatt før 1998 sortert på lønn, de som tjener mest først. 
+ * Tips: Skriv konkrete datoer slik: '2016-12-24' (julaften 2016). 
+ * Du kan alternativt bruke funksjonen YEAR.
+ */
+
+  SELECT Etternavn, fornavn, Ansattdato, lønn 
+  FROM ansatt
+  WHERE YEAR(Ansattdato) < 1998 
+  ORDER BY lønn DESC
+
+ /* Oppgave 8
+  * All informasjon om ansatte som har "sekretær" i tittelen. 
+  *Tips: Bruk "jokernotasjon"!
+  */
+
+ SELECT CONCAT (fornavn, ' ', etternavn) AS Navn, Stilling
+ FROM ansatt
+ WHERE stilling LIKE 'sek%'
+
+ /* Oppgave 9
+  * Ansattnr og stilling til alle ansatte som er eldre enn 40 år og tjener mindre enn 450.000 kroner 
+  * i året. 
+  * Tips: Funksjonen DATE_ADD legger et tidsintervall til en dato. 
+  * F.eks. vil DATE_ADD('2016-12-24', INTERVAL 3 DAY) returnere datoen '2016-12-27'. 
+  * Intervallet kan angis i ulike måleenheter, f.eks. WEEK, MONTH eller YEAR. CURDATE gir dagens dato. Du må bruke den slik: CURDATE() - altså med tomme parenteser!*  
+  */
+
+-- CURDATE = Gir dagens Dato
+
+SELECT Fødselsdato, CONCAT(fornavn, ' ', etternavn) AS NavnAnsattNr, Stilling, lønn
+FROM ansatt
+WHERE DATE_ADD(Fødselsdato, INTERVAL 40 YEAR) < CURDATE() AND lønn < 450000
+
+
+
+
 
