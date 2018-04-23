@@ -37,3 +37,30 @@ WHERE NOT (stilling = 'sekretær') AND lønn < 400000
  SELECT etternavn, fornavn, stilling
  FROM ansatt
  ORDER BY  stilling ASC
+
+ /* Oppgave 5
+ * Ansattnummer og navn for alle ansatte født i 1970. 
+ * Fornavn og etternavn skal stå i én kolonne adskilt av ett blankt tegn. 
+ * Utskriften skal dessuten inneholde årstall for ansettelse.
+ * Tips: Bruk funksjonen CONCAT for å sette sammen tekster. 
+ * Prøv først å skrive SELECT CONCAT('a','b','c') i SQL-vinduet.
+ * Svaret blir 'abc'. Bruk funksjonen YEAR for å trekke ut årstallet fra en dato. 
+ * Se SQL-dokumentasjonen til MySQL for eksempler.
+ */
+
+ SELECT CONCAT (fornavn, ' ', etternavn) AS Navn, AnsattNr, Fødselsdato 
+ FROM ansatt
+ WHERE year(Fødselsdato) = 1970
+
+ /* Oppgave 6
+  * Etternavn og månedslønn for ansatte i markedsavdelingen. 
+  * Tips: Bruk funksjonen ROUND for å avrunde månedslønn til to desimaler, 
+  * f.eks. vil ROUND(123.456, 1) gi 123.5.
+  */
+
+ SELECT Etternavn, avdeling, lønn AS Månedslønn
+ FROM ansatt 
+ WHERE avdeling LIKE 'mark%' AND round(lønn,2)/12
+
+  
+
