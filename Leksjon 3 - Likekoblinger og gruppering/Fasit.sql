@@ -49,9 +49,10 @@ FROM vare
 
 -- 2. Prisen på dyreste vare i hver enkelt varekategori.
 
-SELECT vare.KatNr, MAX(vare.Pris) AS Dyreste 
-FROM vare
-GROUP BY vare.KatNr
+SELECT v.KatNr, v.VNr, v.Betegnelse, MAX(v.Pris) AS dyrest
+FROM vare as v
+GROUP BY v.KatNr, v.Pris DESC
+
 
 -- 3. Høyeste og laveste månedslønn i hver stillingskategori.
 
