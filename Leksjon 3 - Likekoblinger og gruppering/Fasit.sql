@@ -71,10 +71,30 @@ Having AntallVare >= 10
 
 -- Kap. 4, 1e. Samlet beløp hver kunde har handlet for.
 
-
+SELECT k.KNr, CONCAT (k.Fornavn, ' ', k.Etternavn) AS NAVN, SUM(ol.Antall * ol.PrisPrEnhet) AS Beløp
+FROM ordrelinje AS OL, ordre AS O, kunde AS K
+where ol.OrdreNr = o.OrdreNr AND k.KNr = o.KNr
+GROUP BY k.KNr, k.Fornavn, k.Etternavn
 
 -- Kap. 4, 1g. Samlet beløp pr. ordre.
 
+SELECT OrdreNr, SUM(PrisPrEnhet * antall) AS SamletBeløp
+FROM ordrelinje
+GROUP BY OrdreNr
+
 -- Kap. 4, 1j. Hvor mye hver varekategori har solgt for.
 
--- Antall kvinnelige og mannlige ansatte på hvert poststed. Sorter på poststed (navnet på poststedet).
+SELECT Kategori.KatNr, Kategori.Navn, SUM(Ordrelinje.Antall*PrisPrEnhet) AS SamletPris
+FROM Vare, Ordrelinje, Kategori
+WHERE Vare.VNr = Ordrelinje.VNr AND Vare.KatNr = Kategori.KatNr
+GROUP BY Kategori.KatNr, Kategori.Navn
+ORDER BY SUM(Ordrelinje.Antall*PrisPrEnhet) DESC
+
+-- Antall kvinnelige og mannlige ansatte på hvert poststed. 
+-- Sorter på poststed (navnet på poststedet).
+
+SELECT fornavn, etternavn, poststed.*, kjønn, COUNT(*) AS AntallPersoner
+FROM ansatt, poststed
+WHERE poststed.PostNr = ansatt.PostNr
+GROUP BY fornavn, etternavn, kjønn 
+ORDEr BY poststed ASC
