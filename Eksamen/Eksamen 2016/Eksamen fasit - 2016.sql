@@ -106,8 +106,16 @@ forutsetninger hvis oppgaveteksten er uklar.
 
 Funksjonelle Avhengigheter
 
+TNR --> Alle kolonner
+
 Kandidat Nøkkel
 
+- Tnr
+- DATo
+
 Normalisering
+
+Tur(TNr, beskrivelse, pris)
+Rute(Tnr*, Dato, Hytte)
 
 */
